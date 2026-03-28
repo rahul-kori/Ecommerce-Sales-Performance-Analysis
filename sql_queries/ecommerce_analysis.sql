@@ -1,0 +1,109 @@
+-- STEP.1 - PROJECT SETUP (ENVIRONMENT+ DATASET) --
+-- DATABASE CREATED --
+-- DATASET IMPORTED --
+-- TABLES READY --
+-- DATA VERIFIED --
+
+-- DATABASE CREATED --
+CREATE DATABASE Ecommerce_Analysis;
+
+USE Ecommerce_Analysis;
+
+-- DATASET IMPORTED --
+-- TABLES READY --
+
+-- DATA VERIFIED --
+SELECT TOP 10 * FROM orders;
+
+SELECT COUNT(*) FROM orders;
+
+-- STEP.2 - DATA UNDERSTANDING & QUALITY CHECK
+-- DETECT MISSING VALUES --
+-- DETECT DUPLICATES --
+-- UNDERSTANDING TABLES RELATIONSHIPS --
+-- EXPLORE DATASET USING SQL --
+
+-- 1.UNDERSTAND EACH TABLE : TO UNDERSTAND WHAT EACH COLUMNS REPRESENTS --
+
+SELECT TOP 10 * FROM orders;
+SELECT TOP 10 * FROM customers;
+SELECT TOP 10 * FROM order_items;
+SELECT TOP 10 * FROM payments;
+SELECT TOP 10 * FROM reviews;
+SELECT TOP 10 * FROM products;
+SELECT TOP 10 * FROM sellers;
+
+-- 2.CHECK TOTAL RECORDS : CHECK DATASET SIZE OR KNOW DATA VOLUME --
+
+SELECT COUNT(*) FROM orders;
+SELECT COUNT(*) FROM customers;
+SELECT COUNT(*) FROM order_items;
+SELECT COUNT(*) FROM payments;
+SELECT COUNT(*) FROM reviews;
+SELECT COUNT(*) FROM products;
+SELECT COUNT(*) FROM sellers;
+
+-- 3.CHECKING MISSING VALUES --
+SELECT TOP 10 * FROM orders;
+
+SELECT COUNT(*) FROM orders;
+
+SELECT 
+COUNT(*) AS total_rows,
+COUNT(order_delivered_customer_date) AS delivered_status
+FROM orders;
+
+SELECT COUNT(*)
+FROM orders
+WHERE order_delivered_customer_date IS NULL;
+
+-- 4.CHECK DUPLICATE RECORDS --
+SELECT 
+order_id,
+COUNT(*)
+FROM orders
+GROUP BY order_id
+having COUNT(*)>1;
+
+-- 5.CHECK ORDER STATUS DISTRIBUTION --
+SELECT 
+order_status,
+COUNT(*) AS total_orders
+FROM orders
+GROUP BY order_status
+ORDER BY total_orders DESC;
+
+-- 6.UNDERSTAND TABLE RELATIONSHIP --
+-- customer - orders - order_items - products
+-- orders - payments - reviews
+
+-- 7.IDENTIFY PRIMERYKEY --
+/*
+order		order_id
+customers	customer_id
+products	product_id
+sellers		seller_id
+*/
+
+-- 8.BUSINESS UNDERSTANDING THROUGH DATA --
+SELECT
+MAX(order_purchase_timestamp) AS last_order,
+MIN(order_purchase_timestamp) AS first_order
+FROM orders;
+
+-- STEP.3 - DATA CLEANING & DATA PREPARATION --
+/*
+HANDLING MISSING VALUES
+REMOVING DUPLICATES
+FIX INCORRECT DATA TYPES
+CREATE NEW ANALYTICAL COLUMNS
+CREATE A FINAL ANALYSIS DATASET
+*/
+
+-- 1.WHY DATA CLEANING IS IMPORTANT : IF WE DO ANALYSIS WITHOUT CLEANING BUSINESS INSIGHTS WILL BE WRONG --
+-- 2.EXPORTING DATA FROM SQL TO PYTHON --
+
+-- STEP.4 - EXPLORATORY DATA ANALYSIS (EDA) - DID IN PYTHON
+
+-- STEP.5 - SQL BUSINESS ANALYSIS
+1
